@@ -5,9 +5,13 @@
              x:Class="TimesheetGPS.MainPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Hallo!"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+            </Label>
+            <Button Text="Opslaan"
+                    Clicked="Button_Clicked">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

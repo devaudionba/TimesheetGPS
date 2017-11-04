@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using TimesheetGPS.View;
 using Xamarin.Forms;
 
 namespace TimesheetGPS
@@ -13,7 +13,7 @@ namespace TimesheetGPS
         {
             InitializeComponent();
 
-            MainPage = new TimesheetGPS.MainPage();
+            MainPage = new NavigationPage(new Locaties());
         }
 
         protected override void OnStart()

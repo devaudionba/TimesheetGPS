@@ -13,5 +13,10 @@ namespace TimesheetGPS
         {
             InitializeComponent();
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            var i = 5;
+        }
     }
 }
