@@ -7,5 +7,7 @@ namespace TimesheetGPS.Interfaces
         T GetItem(int ID);
 
         List<T> GetList();
+
+        void Add(T item);
     }
 }

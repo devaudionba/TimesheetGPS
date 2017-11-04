@@ -1,13 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TimesheetGPS.Converters"
              x:Class="TimesheetGPS.View.LocatieView"
              Title="Locatie">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToColorConverter x:Key="myConverter" />
+            <Style TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="BorderColor" Value="Lime" />
+                <Setter Property="BorderRadius" Value="5" />
+                <Setter Property="BorderWidth" Value="5" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="TextColor" Value="Teal" />
+            </Style>
+            <Style x:Key="labelStyle" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="TextColor" Value="Blue" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{Binding Naam}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Start" Clicked="ButtonStart_Clicked"/>
+            <Button Text="Stop" Clicked="ButtonStop_Clicked" />
+            <ListView x:Name="RegistratiesList" ItemsSource="{Binding Registraties}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" BackgroundColor="{Binding GPSRegistratie, Converter={StaticResource myConverter}}">
+                                <Label Text="{Binding StartTijd}" Font="10" Style="{StaticResource labelStyle}" />
+                                <Label Text=" - " Font="10" Style="{StaticResource labelStyle}" />
+                                <Label Text="{Binding EindTijd}" Font="10" Style="{StaticResource labelStyle}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

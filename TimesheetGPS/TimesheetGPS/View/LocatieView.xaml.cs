@@ -12,12 +12,30 @@ namespace TimesheetGPS.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LocatieView : ContentPage
     {
+        private LocatieViewModel vm;
+
         public LocatieView(int ID)
         {
-            var vm = new LocatieViewModel(ID);
+            vm = new LocatieViewModel(ID);
             BindingContext = vm;
 
             InitializeComponent();
         }
+
+        private void ButtonStart_Clicked(object sender, EventArgs e)
+        {
+            vm.AddRegistratie(new Model.Registratie()
+            {
+                LocatieID = vm.LocatieID,
+                StartTijd = DateTime.Now,
+                GPSRegistratie = false
+            });
+        }
+
+        private void ButtonStop_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

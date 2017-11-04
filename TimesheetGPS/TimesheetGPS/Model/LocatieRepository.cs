@@ -31,6 +31,11 @@ namespace TimesheetGPS.Model
                     }
                 };
 
+        public void Add(Locatie item)
+        {
+            locaties.Add(item);
+        }
+
         public Locatie GetItem(int ID)
         {
             return locaties.Where(x => x.ID == ID).FirstOrDefault();
