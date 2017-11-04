@@ -9,31 +9,18 @@ namespace TimesheetGPS.ViewModel
 {
     public class LocatiesViewModel
     {
+        LocatieRepository repo;
+
+        public LocatiesViewModel()
+        {
+            repo = new LocatieRepository();
+        }
+
         public List<Locatie> Locaties
         {
             get
             {
-                return new List<Locatie>()
-                {
-                    new Locatie()
-                    {
-                        IsCurrentlyActive = false,
-                        ID = 1,
-                        Naam = "SVB"
-                    },
-                    new Locatie()
-                    {
-                        IsCurrentlyActive = true,
-                        ID = 2,
-                        Naam = "Thuis"
-                    },
-                    new Locatie()
-                    {
-                        IsCurrentlyActive = false,
-                        ID = 3,
-                        Naam = "Basketball"
-                    }
-                };
+                return repo.GetList();
             }
         }
     }

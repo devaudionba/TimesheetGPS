@@ -2,7 +2,7 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace TimesheetGPS.View
+namespace TimesheetGPS.Converters
 {
     public class BoolToColorConverter : IValueConverter
     {

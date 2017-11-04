@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimesheetGPS.Model;
 using TimesheetGPS.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,14 +17,21 @@ namespace TimesheetGPS.View
 
         public Locaties()
         {
-            InitializeComponent();
             vm = new LocatiesViewModel();
             BindingContext = vm;
+
+            InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
+        }
+
+        private void LocatiesList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var locatie = e.Item as Locatie;
+            Navigation.PushAsync(new LocatieView(locatie.ID));
         }
     }
 }
