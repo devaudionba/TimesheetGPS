@@ -24,7 +24,7 @@ namespace TimesheetGPS.Model
                         ID = 2,
                         LocatieID = 1,
                         StartTijd = new DateTime(2017,11,2,8,46,12),
-                        EindTijd = new DateTime(2017,11,2,16,57,42),
+//                        EindTijd = new DateTime(2017,11,2,16,57,42),
                         GPSRegistratie = false
                     },
                     new Registratie()

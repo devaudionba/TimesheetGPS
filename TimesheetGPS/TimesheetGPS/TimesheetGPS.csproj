@@ -38,6 +38,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DateTimeToStringConverter.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Model\Locatie.cs" />
     <Compile Include="Model\LocatieRepository.cs" />

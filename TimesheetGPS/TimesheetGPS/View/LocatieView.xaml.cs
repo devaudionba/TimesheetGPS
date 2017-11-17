@@ -28,7 +28,7 @@ namespace TimesheetGPS.View
             {
                 LocatieID = vm.LocatieID,
                 StartTijd = DateTime.Now,
-                GPSRegistratie = false
+                GPSRegistratie = false                 
             });
         }
 
@@ -36,6 +36,5 @@ namespace TimesheetGPS.View
         {
 
         }
-
     }
 }
