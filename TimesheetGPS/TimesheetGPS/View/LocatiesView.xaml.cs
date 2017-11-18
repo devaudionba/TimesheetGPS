@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 using TimesheetGPS.ViewModel;
 using Xamarin.Forms;
@@ -17,7 +19,7 @@ namespace TimesheetGPS.View
 
         public Locaties()
         {
-            vm = new LocatiesViewModel();
+            vm = new LocatiesViewModel(App.container.Resolve<IRegistratieRepository>());
             BindingContext = vm;
 
             InitializeComponent();

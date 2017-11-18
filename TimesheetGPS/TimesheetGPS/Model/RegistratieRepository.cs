@@ -7,7 +7,7 @@ using TimesheetGPS.Interfaces;
 
 namespace TimesheetGPS.Model
 {
-    class RegistratieRepository : IRepository<Registratie>
+     class RegistratieRepository : IRegistratieRepository
     {
         private List<Registratie> registraties = new List<Registratie>()
                 {

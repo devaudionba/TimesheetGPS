@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 
 namespace TimesheetGPS.ViewModel
@@ -10,10 +11,12 @@ namespace TimesheetGPS.ViewModel
     public class LocatiesViewModel
     {
         LocatieRepository repo;
+        private IRegistratieRepository registratieRepository;
 
-        public LocatiesViewModel()
+        internal LocatiesViewModel(IRegistratieRepository registratieRepository)
         {
             repo = new LocatieRepository();
+            this.registratieRepository = registratieRepository;
         }
 
         public List<Locatie> Locaties
@@ -23,5 +26,7 @@ namespace TimesheetGPS.ViewModel
                 return repo.GetList();
             }
         }
+
+        public int NumberOfRegistrations => registratieRepository.GetList().Count();
     }
 }

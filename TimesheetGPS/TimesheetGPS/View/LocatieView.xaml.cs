@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimesheetGPS.Interfaces;
 using TimesheetGPS.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,7 +18,7 @@ namespace TimesheetGPS.View
 
         public LocatieView(int ID)
         {
-            vm = new LocatieViewModel(ID);
+            vm = new LocatieViewModel(ID, App.container.Resolve<IRegistratieRepository>());
             BindingContext = vm;
 
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace TimesheetGPS.View
 
         private void ButtonStop_Clicked(object sender, EventArgs e)
         {
-
+            vm.StopRegistratie();
         }
     }
 }

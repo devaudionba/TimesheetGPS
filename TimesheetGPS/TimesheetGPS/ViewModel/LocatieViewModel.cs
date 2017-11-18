@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 
 namespace TimesheetGPS.ViewModel
@@ -11,33 +12,51 @@ namespace TimesheetGPS.ViewModel
     public class LocatieViewModel : INotifyPropertyChanged
     {
         private Locatie locatie;
-        private RegistratieRepository registratieRepo;
+        private IRegistratieRepository registratieRepository;
 
-        public LocatieViewModel(int ID)
+        internal LocatieViewModel(int ID, IRegistratieRepository registratieRepository)
         {
             var locatieRepo = new LocatieRepository();
             locatie = locatieRepo.GetItem(ID);
 
-            registratieRepo = new RegistratieRepository();
+            this.registratieRepository = registratieRepository;
         }
 
         public int LocatieID => locatie.ID;
 
         public string Naam => locatie.Naam;
 
-        public bool IsCurrentlyActive => locatie.IsCurrentlyActive;
+        public bool IsCurrentlyActive => registratieRepository.GetList(locatie.ID).Count(x => x.EindTijd == null) > 0;
 
-        public List<Registratie> Registraties => registratieRepo.GetList(locatie.ID).OrderByDescending(x => x.StartTijd).ToList();
+        public List<Registratie> Registraties => registratieRepository.GetList(locatie.ID).OrderByDescending(x => x.StartTijd).ToList();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void AddRegistratie(Registratie registratie)
         {
-            registratieRepo.Add(registratie);
+            registratieRepository.Add(registratie);
 
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs("Registraties"));
+            }
+        }
+
+        internal void StopRegistratie()
+        {
+            var activeRegistration = registratieRepository.GetList(locatie.ID).FirstOrDefault(x => x.EindTijd == null);
+            if (activeRegistration == null)
+            {
+                // valt niet te stoppen
+            }
+            else
+            {
+                activeRegistration.EindTijd = DateTime.Now;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Registraties"));
+                }
+
             }
         }
     }

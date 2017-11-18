@@ -31,8 +31,11 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout BackgroundColor="{Binding IsCurrentlyActive, Converter={StaticResource myConverter}}">
-                                <Label Text="{Binding ID}" Font="12" Style="{StaticResource labelStyle}" />
                                 <Label Text="{Binding Naam}" Font="15" Style="{StaticResource labelStyle}" />
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="#registraties: " Font="10" Style="{StaticResource labelStyle}" />
+                                    <Label Text="{Binding NumberOfRegistrations}" Font="10" Style="{StaticResource labelStyle}" />
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
