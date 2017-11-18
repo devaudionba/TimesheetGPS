@@ -11,24 +11,49 @@ namespace TimesheetGPS.ViewModel
 {
     public class LocatieViewModel : INotifyPropertyChanged
     {
-        private Locatie locatie;
         private IRegistratieRepository registratieRepository;
+        private ILocatieRepository locatieRepository;
 
-        internal LocatieViewModel(int ID, IRegistratieRepository registratieRepository)
+        private int id;
+        private string naam;
+
+        internal LocatieViewModel(IRegistratieRepository registratieRepository,
+                                ILocatieRepository locatieRepository)
         {
-            var locatieRepo = new LocatieRepository();
-            locatie = locatieRepo.GetItem(ID);
-
+            this.locatieRepository = locatieRepository;
             this.registratieRepository = registratieRepository;
+
         }
 
-        public int LocatieID => locatie.ID;
+        internal void Load(int ID)
+        {
+            var locatie = this.locatieRepository.GetItem(ID);
+            this.ID = locatie.ID;
+            this.Naam = locatie.Naam;
+        }
 
-        public string Naam => locatie.Naam;
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        
+        public string Naam
+        {
+            get { return naam; }
+            set
+            {
+                naam = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Naam"));
+                }
+            }
+        }
 
-        public bool IsCurrentlyActive => registratieRepository.GetList(locatie.ID).Count(x => x.EindTijd == null) > 0;
+        public bool IsCurrentlyActive => registratieRepository.GetList(ID).Count(x => x.EindTijd == null) > 0;
 
-        public List<Registratie> Registraties => registratieRepository.GetList(locatie.ID).OrderByDescending(x => x.StartTijd).ToList();
+        public List<Registratie> Registraties => registratieRepository.GetList(ID).OrderByDescending(x => x.StartTijd).ToList();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,7 +69,7 @@ namespace TimesheetGPS.ViewModel
 
         internal void StopRegistratie()
         {
-            var activeRegistration = registratieRepository.GetList(locatie.ID).FirstOrDefault(x => x.EindTijd == null);
+            var activeRegistration = registratieRepository.GetList(ID).FirstOrDefault(x => x.EindTijd == null);
             if (activeRegistration == null)
             {
                 // valt niet te stoppen

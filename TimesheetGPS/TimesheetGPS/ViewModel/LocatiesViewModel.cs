@@ -10,12 +10,13 @@ namespace TimesheetGPS.ViewModel
 {
     public class LocatiesViewModel
     {
-        LocatieRepository repo;
+        private ILocatieRepository locatieRepository;
         private IRegistratieRepository registratieRepository;
 
-        internal LocatiesViewModel(IRegistratieRepository registratieRepository)
+        internal LocatiesViewModel(IRegistratieRepository registratieRepository,
+                                   ILocatieRepository locatieRepository)
         {
-            repo = new LocatieRepository();
+            this.locatieRepository = locatieRepository;
             this.registratieRepository = registratieRepository;
         }
 
@@ -23,7 +24,7 @@ namespace TimesheetGPS.ViewModel
         {
             get
             {
-                return repo.GetList();
+                return locatieRepository.GetList();
             }
         }
 

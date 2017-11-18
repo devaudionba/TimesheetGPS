@@ -20,6 +20,10 @@ namespace TimesheetGPS
                    .As<IRegistratieRepository>()
                    .ExternallyOwned();
 
+            builder.RegisterInstance(new LocatieRepository())
+                   .As<ILocatieRepository>()
+                   .ExternallyOwned();
+
             container = builder.Build();
 
             MainPage = new NavigationPage(new Locaties());

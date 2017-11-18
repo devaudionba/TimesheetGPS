@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToStringConverter.cs" />
+    <Compile Include="Interfaces\ILocatieRepository.cs" />
     <Compile Include="Interfaces\IRegistratieRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Model\Locatie.cs" />

@@ -7,25 +7,22 @@ using TimesheetGPS.Interfaces;
 
 namespace TimesheetGPS.Model
 {
-    public class LocatieRepository : IRepository<Locatie>
+    public class LocatieRepository : ILocatieRepository
     {
         private List<Locatie> locaties = new List<Locatie>()
                 {
                     new Locatie()
                     {
-                        IsCurrentlyActive = false,
                         ID = 1,
                         Naam = "SVB"
                     },
                     new Locatie()
                     {
-                        IsCurrentlyActive = true,
                         ID = 2,
                         Naam = "Thuis"
                     },
                     new Locatie()
                     {
-                        IsCurrentlyActive = false,
                         ID = 3,
                         Naam = "Basketball"
                     }
