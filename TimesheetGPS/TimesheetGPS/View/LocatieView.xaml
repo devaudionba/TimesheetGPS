@@ -27,19 +27,17 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Naam}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Button Text="Start" Clicked="ButtonStart_Clicked"/>
-            <Button Text="Stop" Clicked="ButtonStop_Clicked" />
+            <Label Text="{Binding Naam}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="20" FontAttributes="Bold" Margin="5" />
+            <Button Text="Start" Clicked="ButtonStart_Clicked" IsEnabled="{Binding IsStartEnabled}"/>
+            <Button Text="Stop" Clicked="ButtonStop_Clicked" IsEnabled="{Binding IsStopEnabled}" />
             <ListView x:Name="RegistratiesList" ItemsSource="{Binding Registraties}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" BackgroundColor="{Binding GPSRegistratie, Converter={StaticResource BoolConverter}}">
-                                <Label Text="{Binding StartTijd, Converter={StaticResource DateTimeConverter}}" MinimumWidthRequest="40" Font="10" Style="{StaticResource labelStyle}" />
-                                <Label Text=" - " Font="10" Style="{StaticResource labelStyle}" />
-                                <Label Text="{Binding EindTijd, Converter={StaticResource DateTimeConverter}}" MinimumWidthRequest="40" Font="10" Style="{StaticResource labelStyle}" />
+                            <StackLayout Orientation="Horizontal" BackgroundColor="{Binding GPSRegistratie, Converter={StaticResource BoolConverter}}" HorizontalOptions="CenterAndExpand">
+                                <Label Text="{Binding StartTijd, Converter={StaticResource DateTimeConverter}}" MinimumWidthRequest="200" Font="10" Style="{StaticResource labelStyle}" Margin="5"  />
+                                <Label Text="-" Font="10" Style="{StaticResource labelStyle}" WidthRequest="10" />
+                                <Label Text="{Binding EindTijd, Converter={StaticResource DateTimeConverter}}" MinimumWidthRequest="200" Font="10" Style="{StaticResource labelStyle}" Margin="5" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

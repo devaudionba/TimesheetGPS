@@ -51,6 +51,10 @@ namespace TimesheetGPS.ViewModel
             }
         }
 
+        public bool IsStartEnabled => !Registraties.Any(x => x.EindTijd == null);
+
+        public bool IsStopEnabled => !IsStartEnabled;
+
         public List<Registratie> Registraties => registratieRepository.GetList(ID).OrderByDescending(x => x.StartTijd).ToList();
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -62,6 +66,8 @@ namespace TimesheetGPS.ViewModel
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs("Registraties"));
+                PropertyChanged(this, new PropertyChangedEventArgs("IsStartEnabled"));
+                PropertyChanged(this, new PropertyChangedEventArgs("IsStopEnabled"));
             }
         }
 
@@ -78,6 +84,8 @@ namespace TimesheetGPS.ViewModel
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Registraties"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsStartEnabled"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsStopEnabled"));
                 }
 
             }
