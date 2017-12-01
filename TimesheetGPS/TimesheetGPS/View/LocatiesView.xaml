@@ -10,11 +10,11 @@
             <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="BorderColor" Value="Lime" />
-                <Setter Property="BorderRadius" Value="5" />
-                <Setter Property="BorderWidth" Value="5" />
-                <Setter Property="WidthRequest" Value="200" />
-                <Setter Property="TextColor" Value="Teal" />
+                <Setter Property="BackgroundColor" Value="Red" />
+                <Setter Property="BorderRadius" Value="7" />
+                <Setter Property="WidthRequest" Value="14" />
+                <Setter Property="HeightRequest" Value="14" />
+                <Setter Property="TextColor" Value="Black" />
             </Style>
             <Style x:Key="labelStyle" TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="Center" />
@@ -30,8 +30,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout BackgroundColor="{Binding IsCurrentlyActive, Converter={StaticResource myConverter}}">
-                                <Label Text="{Binding Naam}" Font="15" Style="{StaticResource labelStyle}" />
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Button IsEnabled="False" Style="{StaticResource buttonStyle}" IsVisible="{Binding IsCurrentlyActive}" />
+                                    <Label Text="{Binding Naam}" Font="15" Style="{StaticResource labelStyle}" />
+                                </StackLayout>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="#registraties: " Font="10" Style="{StaticResource labelStyle}" />
                                     <Label Text="{Binding NumberOfRegistrations}" Font="10" Style="{StaticResource labelStyle}" />

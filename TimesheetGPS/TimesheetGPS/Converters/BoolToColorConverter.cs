@@ -10,7 +10,7 @@ namespace TimesheetGPS.Converters
         {
             if ((bool)value)
             {
-                return Color.LightSeaGreen;
+                return Color.Red;
             }
             else
             {
