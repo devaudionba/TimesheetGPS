@@ -7,7 +7,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:BoolToColorConverter x:Key="myConverter" />
-            <Style x:Key="buttonStyle" TargetType="Button">
+            <Style x:Key="recordingStyle" TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
                 <Setter Property="BackgroundColor" Value="Red" />
@@ -16,28 +16,36 @@
                 <Setter Property="HeightRequest" Value="14" />
                 <Setter Property="TextColor" Value="Black" />
             </Style>
-            <Style x:Key="labelStyle" TargetType="Label">
+            <Style x:Key="mainLabelStyle" TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
                 <Setter Property="WidthRequest" Value="200" />
-                <Setter Property="TextColor" Value="Blue" />
+                <Setter Property="Font" Value="16" />
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+            <Style x:Key="subLabelStyle" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="Font" Value="10" />
+                <Setter Property="TextColor" Value="Black" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Padding="20">
-            <ListView x:Name="LocatiesList" ItemsSource="{Binding Locaties}" ItemTapped="LocatiesList_ItemTapped">
+            <ListView x:Name="LocatiesList" ItemsSource="{Binding Locaties}" ItemTapped="LocatiesList_ItemTapped" RowHeight="50">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout>
+                            <StackLayout Padding="5">
                                 <StackLayout Orientation="Horizontal">
-                                    <Button IsEnabled="False" Style="{StaticResource buttonStyle}" IsVisible="{Binding IsCurrentlyActive}" />
-                                    <Label Text="{Binding Naam}" Font="15" Style="{StaticResource labelStyle}" />
+                                    <Button IsEnabled="False" Style="{StaticResource recordingStyle}" IsVisible="{Binding IsCurrentlyActive}" />
+                                    <Label Text="{Binding Naam}" Style="{StaticResource mainLabelStyle}" />
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="#registraties: " Font="10" Style="{StaticResource labelStyle}" />
-                                    <Label Text="{Binding NumberOfRegistrations}" Font="10" Style="{StaticResource labelStyle}" />
+                                    <Label Text="#registraties: " Font="10" Style="{StaticResource subLabelStyle}" WidthRequest="80" />
+                                    <Label Text="{Binding NumberOfRegistrations}" Style="{StaticResource subLabelStyle}" HorizontalTextAlignment="Start" />
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>
