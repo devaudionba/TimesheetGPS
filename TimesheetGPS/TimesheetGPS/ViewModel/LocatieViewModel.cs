@@ -51,8 +51,6 @@ namespace TimesheetGPS.ViewModel
             }
         }
 
-        public bool IsCurrentlyActive => registratieRepository.GetList(ID).Count(x => x.EindTijd == null) > 0;
-
         public List<Registratie> Registraties => registratieRepository.GetList(ID).OrderByDescending(x => x.StartTijd).ToList();
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -2,7 +2,7 @@
 
 namespace TimesheetGPS.Interfaces
 {
-    interface IRepository<T>
+    public interface IRepository<T>
     {
         T GetItem(int ID);
 

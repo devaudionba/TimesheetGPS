@@ -13,11 +13,11 @@ using Xamarin.Forms.Xaml;
 namespace TimesheetGPS.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Locaties : ContentPage
+    public partial class LocatiesView : ContentPage
     {
         private LocatiesViewModel vm;
 
-        public Locaties()
+        public LocatiesView()
         {
             vm = new LocatiesViewModel(App.container.Resolve<IRegistratieRepository>(),
                                        App.container.Resolve<ILocatieRepository>());
@@ -33,7 +33,7 @@ namespace TimesheetGPS.View
 
         private void LocatiesList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var locatie = e.Item as Locatie;
+            var locatie = e.Item as LocatieDisplayInfo;
             Navigation.PushAsync(new LocatieView(locatie.ID));
         }
     }

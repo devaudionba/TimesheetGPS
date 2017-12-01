@@ -43,6 +43,7 @@
     <Compile Include="Interfaces\IRegistratieRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Model\Locatie.cs" />
+    <Compile Include="Model\LocatieDisplayInfo.cs" />
     <Compile Include="Model\LocatieRepository.cs" />
     <Compile Include="Model\Registratie.cs" />
     <Compile Include="Model\RegistratieRepository.cs" />

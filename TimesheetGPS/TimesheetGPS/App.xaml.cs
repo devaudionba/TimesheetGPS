@@ -26,7 +26,7 @@ namespace TimesheetGPS
 
             container = builder.Build();
 
-            MainPage = new NavigationPage(new Locaties());
+            MainPage = new NavigationPage(new LocatiesView());
         }
 
         protected override void OnStart()

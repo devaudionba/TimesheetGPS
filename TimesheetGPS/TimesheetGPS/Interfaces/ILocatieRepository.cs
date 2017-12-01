@@ -7,7 +7,7 @@ using TimesheetGPS.Model;
 
 namespace TimesheetGPS.Interfaces
 {
-    interface ILocatieRepository : IRepository<Locatie>
+    public interface ILocatieRepository : IRepository<Locatie>
     {
 
     }

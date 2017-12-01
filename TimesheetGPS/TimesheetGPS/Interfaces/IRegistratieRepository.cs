@@ -7,7 +7,7 @@ using TimesheetGPS.Model;
 
 namespace TimesheetGPS.Interfaces
 {
-    interface IRegistratieRepository : IRepository<Registratie>
+    public interface IRegistratieRepository : IRepository<Registratie>
     {
         List<Registratie> GetList(int locatieID);
     }

@@ -13,21 +13,29 @@ namespace TimesheetGPS.ViewModel
         private ILocatieRepository locatieRepository;
         private IRegistratieRepository registratieRepository;
 
-        internal LocatiesViewModel(IRegistratieRepository registratieRepository,
+        public LocatiesViewModel(IRegistratieRepository registratieRepository,
                                    ILocatieRepository locatieRepository)
         {
             this.locatieRepository = locatieRepository;
             this.registratieRepository = registratieRepository;
         }
 
-        public List<Locatie> Locaties
+        public List<LocatieDisplayInfo> Locaties
         {
             get
             {
-                return locatieRepository.GetList();
+                var result = locatieRepository
+                            .GetList()
+                            .Select(x => new LocatieDisplayInfo
+                            {
+                                ID = x.ID,
+                                Naam = x.Naam,
+                                NumberOfRegistrations = registratieRepository.GetList(x.ID).Count(),
+                                IsCurrentlyActive = registratieRepository.GetList(x.ID).Any(r => r.EindTijd == null)
+                            })
+                            .ToList();
+                return result;
             }
         }
-
-        public int NumberOfRegistrations => registratieRepository.GetList().Count();
     }
 }
