@@ -81,6 +81,8 @@ namespace TimesheetGPS.ViewModel
             else
             {
                 activeRegistration.EindTijd = DateTime.Now;
+                registratieRepository.Update(activeRegistration);
+
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Registraties"));

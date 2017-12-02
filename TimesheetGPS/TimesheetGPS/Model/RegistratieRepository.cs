@@ -4,42 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimesheetGPS.Interfaces;
+using SQLite;
 
 namespace TimesheetGPS.Model
 {
-     class RegistratieRepository : IRegistratieRepository
+     public class RegistratieRepository : IRegistratieRepository
     {
-        private List<Registratie> registraties = new List<Registratie>()
-                {
-                    new Registratie()
-                    {
-                        ID = 1,
-                        LocatieID = 1,
-                        StartTijd = new DateTime(2017,11,1,9,1,12),
-                        EindTijd = new DateTime(2017,11,1,17,28,42),
-                        GPSRegistratie = false
-                    },
-                    new Registratie()
-                    {
-                        ID = 2,
-                        LocatieID = 1,
-                        StartTijd = new DateTime(2017,11,2,8,46,12),
-//                        EindTijd = new DateTime(2017,11,2,16,57,42),
-                        GPSRegistratie = false
-                    },
-                    new Registratie()
-                    {
-                        ID = 3,
-                        LocatieID = 2,
-                        StartTijd = new DateTime(2017,10,2,8,46,12),
-                        EindTijd = new DateTime(2017,10,2,16,57,42),
-                        GPSRegistratie = false
-                    }
-                };
+        private List<Registratie> registraties;
+
+        public List<Registratie> Registraties
+        {
+            get { return registraties; }
+            set
+            {
+                registraties = value;
+            }
+        }
+
+
+        public RegistratieRepository()
+        {
+            registraties = App.Database.GetRegistraties().Result;
+        }
 
         public void Add(Registratie item)
         {
             registraties.Add(item);
+            App.Database.SaveItemAsync(item);
+        }
+
+        public void Update(Registratie item)
+        {
+            App.Database.SaveItemAsync(item);
         }
 
         public Registratie GetItem(int ID)

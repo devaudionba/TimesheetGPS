@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using System;
 using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 using TimesheetGPS.View;
@@ -9,6 +10,7 @@ namespace TimesheetGPS
     public partial class App : Application
     {
         public static IContainer container;
+        static Database database;
 
         public App()
         {
@@ -27,6 +29,26 @@ namespace TimesheetGPS
             container = builder.Build();
 
             MainPage = new NavigationPage(new LocatiesView());
+        }
+
+        public static Database Database
+        {
+            get
+            {
+                try
+                {
+                    if (database == null)
+                    {
+                        var path = DependencyService.Get<IFileHelper>().GetLocalFilePath("TimesheetGPS_SQLite.db3");
+                        database = new Database(path);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                return database;
+            }
         }
 
         protected override void OnStart()
