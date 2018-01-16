@@ -14,8 +14,7 @@ namespace TimesheetGPS.View
 
         public LocatiesView()
         {
-            vm = new LocatiesViewModel(App.container.Resolve<IRegistratieRepository>(),
-                                       App.container.Resolve<ILocatieRepository>());
+            vm = new LocatiesViewModel(/*App.container.Resolve<ILocatieRepository>()*/);
             BindingContext = vm;
 
             InitializeComponent();
@@ -29,7 +28,7 @@ namespace TimesheetGPS.View
         private void LocatiesList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var locatie = e.Item as LocatieDisplayInfo;
-            Navigation.PushAsync(new LocatieView(locatie.ID));
+            Navigation.PushAsync(new LocatieView(locatie.ID.Value));
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿namespace TimesheetGPS.Model
 {
-    public class Locatie
+    public class Locatie : Entity
     {
-        public int ID { get; set; }
-
         public string Naam { get; set; }
     }
 }

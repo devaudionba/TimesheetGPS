@@ -18,8 +18,7 @@ namespace TimesheetGPS.View
 
         public LocatieView(int ID)
         {
-            vm = new LocatieViewModel(App.container.Resolve<IRegistratieRepository>(),
-                                      App.container.Resolve<ILocatieRepository>());
+            vm = new LocatieViewModel();
             vm.Load(ID);
 
             BindingContext = vm;

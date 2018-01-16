@@ -4,13 +4,53 @@ using System;
 namespace TimesheetGPS.Model
 {
     [Table("Registratie")]
-    public class Registratie
+    public class Registratie : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
         public int LocatieID { get; set; }
-        public DateTime StartTijd { get; set; }
-        public DateTime? EindTijd { get; set; }
-        public bool GPSRegistratie { get; set; }
+
+        private DateTime startTijd;
+        public DateTime StartTijd
+        {
+            get { return startTijd; }
+            set
+            {
+                if (value.Equals(startTijd))
+                {
+                    return;
+                }
+                startTijd = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime? eindTijd;
+        public DateTime? EindTijd
+        {
+            get { return eindTijd; }
+            set
+            {
+                if (value.Equals(eindTijd))
+                {
+                    return;
+                }
+                eindTijd = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool gpsRegistratie;
+        public bool GPSRegistratie
+        {
+            get { return gpsRegistratie; }
+            set
+            {
+                if (value.Equals(gpsRegistratie))
+                {
+                    return;
+                }
+                gpsRegistratie = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

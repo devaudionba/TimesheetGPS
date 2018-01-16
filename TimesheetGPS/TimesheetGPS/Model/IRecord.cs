@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TimesheetGPS.Model;
 
-namespace TimesheetGPS.Interfaces
+namespace TimesheetGPS.Model
 {
-    public interface ILocatieRepository : IRepository<Locatie>
+    public interface IRecord
     {
-
+        int ID { get; set; }
     }
 }

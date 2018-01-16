@@ -8,11 +8,11 @@ namespace TimesheetGPS.Model
 {
     public class LocatieDisplayInfo
     {
-        private int id;
+        private int? id;
         private string naam;
         private int numberOfRegistrations;
         
-        public int ID
+        public int? ID
         {
             get { return id; }
             set { id = value; }

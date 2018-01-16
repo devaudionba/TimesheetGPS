@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseAccess.cs" />
     <Compile Include="FileHelper_Android.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

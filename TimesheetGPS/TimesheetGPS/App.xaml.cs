@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using SQLite;
 using System;
+using System.Reflection;
 using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 using TimesheetGPS.View;
@@ -10,7 +12,7 @@ namespace TimesheetGPS
     public partial class App : Application
     {
         public static IContainer container;
-        static Database database;
+        static SQLiteConnection sqlConnection;
 
         public App()
         {
@@ -18,36 +20,53 @@ namespace TimesheetGPS
 
             var builder = new ContainerBuilder();
 
-            builder.RegisterInstance(new RegistratieRepository())
-                   .As<IRegistratieRepository>()
-                   .ExternallyOwned();
+            //builder.RegisterInstance(new RegistratieController())
+            //    .As<RegistratieController>()
+            //    .ExternallyOwned;
 
-            builder.RegisterInstance(new LocatieRepository())
-                   .As<ILocatieRepository>()
-                   .ExternallyOwned();
+            //builder.RegisterGeneric(typeof(EntityController<>))
+            //    .As(typeof(IEntityController<>))
+            //    .InstancePerLifetimeScope();
 
-            container = builder.Build();
+
+            //builder.RegisterAssemblyTypes(typeof(IEntityController<>));
+
+            //builder.RegisterAssemblyTypes(App.Current.asse).AsClosedTypesOf(typeof(IEntityController<>));
+
+            //var dataAccess = Assembly.GetExecutingAssembly()
+
+            //var controllerOpenGenericType = typeof(IEntityController<>);
+            //var controllerImplementations = basePathAssemblies.
+
+            //builder.RegisterInstance(new RegistratieController())
+            //       .As<IRegistratieRepository>()
+            //       .ExternallyOwned();
+
+            //builder.RegisterInstance(new LocatieRepository())
+            //       .As<ILocatieRepository>()
+            //       .ExternallyOwned();
+
+            //container = builder.Build();
 
             MainPage = new NavigationPage(new LocatiesView());
         }
 
-        public static Database Database
+        public static SQLiteConnection SqlConnection
         {
             get
             {
                 try
                 {
-                    if (database == null)
+                    if (sqlConnection == null)
                     {
-                        var path = DependencyService.Get<IFileHelper>().GetLocalFilePath("TimesheetGPS_SQLite.db3");
-                        database = new Database(path);
+                        sqlConnection = DependencyService.Get<IDatabaseAccess>().GetConnection();
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
-                return database;
+                return sqlConnection;
             }
         }
 
