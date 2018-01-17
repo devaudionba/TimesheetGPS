@@ -14,9 +14,11 @@ namespace TimesheetGPS.Model
     {
         private SQLiteConnection db;
 
-        public EntityController(SQLiteConnection db)
+        public EntityController()
         {
-            this.db = db;
+            this.db = App.SqlConnection;
+
+            App.SqlConnection.CreateTable<Registratie>();
         }
 
         public TableQuery<T> AsQueryable()

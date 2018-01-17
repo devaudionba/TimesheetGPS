@@ -1,10 +1,7 @@
 ﻿using Autofac;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimesheetGPS.Interfaces;
+using TimesheetGPS.Model;
 using TimesheetGPS.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,7 +15,8 @@ namespace TimesheetGPS.View
 
         public LocatieView(int ID)
         {
-            vm = new LocatieViewModel();
+            vm = new LocatieViewModel(App.container.Resolve<IEntityController<Locatie>>(),
+                                      App.container.Resolve<IEntityController<Registratie>>());
             vm.Load(ID);
 
             BindingContext = vm;

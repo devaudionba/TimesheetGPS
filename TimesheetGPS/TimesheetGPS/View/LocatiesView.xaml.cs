@@ -14,7 +14,8 @@ namespace TimesheetGPS.View
 
         public LocatiesView()
         {
-            vm = new LocatiesViewModel(/*App.container.Resolve<ILocatieRepository>()*/);
+            vm = new LocatiesViewModel(App.container.Resolve<IEntityController<Locatie>>(), 
+                                       App.container.Resolve<IEntityController<Registratie>>());
             BindingContext = vm;
 
             InitializeComponent();

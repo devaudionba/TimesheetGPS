@@ -7,8 +7,14 @@ namespace TimesheetGPS.ViewModel
 {
     public class LocatiesViewModel
     {
-        private LocatieController locatieController = new LocatieController();
-        private RegistratieController registratieController = new RegistratieController();
+        private IEntityController<Locatie> locatieController;
+        private IEntityController<Registratie> registratieController;
+
+        public LocatiesViewModel(IEntityController<Locatie> locatieController, IEntityController<Registratie> registratieController)
+        {
+            this.locatieController = locatieController;
+            this.registratieController = registratieController;
+        }
 
         public List<LocatieDisplayInfo> Locaties
         {

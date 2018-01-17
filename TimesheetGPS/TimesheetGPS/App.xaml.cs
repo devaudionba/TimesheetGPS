@@ -24,8 +24,18 @@ namespace TimesheetGPS
             //    .As<RegistratieController>()
             //    .ExternallyOwned;
 
-            //builder.RegisterGeneric(typeof(EntityController<>))
-            //    .As(typeof(IEntityController<>))
+            builder.RegisterGeneric(typeof(EntityController<>))
+                .As(typeof(IEntityController<>))
+                .InstancePerLifetimeScope();
+
+
+
+            //builder.RegisterGeneric(typeof(RegistratieController))
+            //    .As(typeof(IEntityController<Registratie>))
+            //    .InstancePerLifetimeScope();
+
+            //builder.RegisterGeneric(typeof(LocatieController))
+            //    .As(typeof(IEntityController<Locatie>))
             //    .InstancePerLifetimeScope();
 
 
@@ -46,7 +56,7 @@ namespace TimesheetGPS
             //       .As<ILocatieRepository>()
             //       .ExternallyOwned();
 
-            //container = builder.Build();
+            container = builder.Build();
 
             MainPage = new NavigationPage(new LocatiesView());
         }

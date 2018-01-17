@@ -11,16 +11,17 @@ namespace TimesheetGPS.ViewModel
 {
     public class LocatieViewModel : INotifyPropertyChanged
     {
-        private RegistratieController registratieController = new RegistratieController();
-        private LocatieController locatieController = new LocatieController();
+        private IEntityController<Locatie> locatieController;
+        private IEntityController<Registratie> registratieController;
 
         private int id;
         private string naam;
 
-        //internal LocatieViewModel(ILocatieRepository locatieRepository)
-        //{
-        //    this.locatieRepository = locatieRepository;
-        //}
+        public LocatieViewModel(IEntityController<Locatie> locatieController, IEntityController<Registratie> registratieController)
+        {
+            this.locatieController = locatieController;
+            this.registratieController = registratieController;
+        }
 
         internal void Load(int ID)
         {

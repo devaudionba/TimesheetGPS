@@ -47,10 +47,8 @@
     <Compile Include="Model\EntityController.cs" />
     <Compile Include="Model\IRecord.cs" />
     <Compile Include="Model\Locatie.cs" />
-    <Compile Include="Model\LocatieController.cs" />
     <Compile Include="Model\LocatieDisplayInfo.cs" />
     <Compile Include="Model\Registratie.cs" />
-    <Compile Include="Model\RegistratieController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\LocatiesViewModel.cs" />
     <Compile Include="ViewModel\LocatieViewModel.cs" />
