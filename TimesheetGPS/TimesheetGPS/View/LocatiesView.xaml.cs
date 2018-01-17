@@ -24,6 +24,8 @@ namespace TimesheetGPS.View
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            vm.Refresh();
         }
 
         private void LocatiesList_ItemTapped(object sender, ItemTappedEventArgs e)

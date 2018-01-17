@@ -6,7 +6,7 @@
              Title="Locatie">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:BoolToColorConverter x:Key="BoolConverter" />
+            <local:BoolToValueConverter x:TypeArguments="Color" x:Key="BoolToColorConverter" TrueValue="Color.Blue" FalseValue="Color.White" />
             <local:NullToStringConverter x:Key="DateTimeConverter" />
             <Style TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Center" />
@@ -34,7 +34,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" BackgroundColor="{Binding GPSRegistratie, Converter={StaticResource BoolConverter}}" HorizontalOptions="CenterAndExpand">
+                            <StackLayout Orientation="Horizontal" BackgroundColor="{Binding GPSRegistratie, Converter={StaticResource BoolToColorConverter}}" HorizontalOptions="CenterAndExpand">
                                 <Label Text="{Binding StartTijd, Converter={StaticResource DateTimeConverter}}" MinimumWidthRequest="200" Font="10" Style="{StaticResource labelStyle}" Margin="5"  />
                                 <Label Text="-" Font="10" Style="{StaticResource labelStyle}" WidthRequest="10" />
                                 <Label Text="{Binding EindTijd, Converter={StaticResource DateTimeConverter}}" MinimumWidthRequest="200" Font="10" Style="{StaticResource labelStyle}" Margin="5" />

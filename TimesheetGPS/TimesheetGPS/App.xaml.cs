@@ -20,41 +20,9 @@ namespace TimesheetGPS
 
             var builder = new ContainerBuilder();
 
-            //builder.RegisterInstance(new RegistratieController())
-            //    .As<RegistratieController>()
-            //    .ExternallyOwned;
-
             builder.RegisterGeneric(typeof(EntityController<>))
-                .As(typeof(IEntityController<>))
-                .InstancePerLifetimeScope();
-
-
-
-            //builder.RegisterGeneric(typeof(RegistratieController))
-            //    .As(typeof(IEntityController<Registratie>))
-            //    .InstancePerLifetimeScope();
-
-            //builder.RegisterGeneric(typeof(LocatieController))
-            //    .As(typeof(IEntityController<Locatie>))
-            //    .InstancePerLifetimeScope();
-
-
-            //builder.RegisterAssemblyTypes(typeof(IEntityController<>));
-
-            //builder.RegisterAssemblyTypes(App.Current.asse).AsClosedTypesOf(typeof(IEntityController<>));
-
-            //var dataAccess = Assembly.GetExecutingAssembly()
-
-            //var controllerOpenGenericType = typeof(IEntityController<>);
-            //var controllerImplementations = basePathAssemblies.
-
-            //builder.RegisterInstance(new RegistratieController())
-            //       .As<IRegistratieRepository>()
-            //       .ExternallyOwned();
-
-            //builder.RegisterInstance(new LocatieRepository())
-            //       .As<ILocatieRepository>()
-            //       .ExternallyOwned();
+                   .As(typeof(IEntityController<>))
+                   .InstancePerLifetimeScope();
 
             container = builder.Build();
 

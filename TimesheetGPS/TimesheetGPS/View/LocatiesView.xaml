@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               xmlns:local="clr-namespace:TimesheetGPS.Converters"
-           x:Class="TimesheetGPS.View.LocatiesView"
+             xmlns:local="clr-namespace:TimesheetGPS.Converters"
+             x:Class="TimesheetGPS.View.LocatiesView"
              Title="Locaties">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:BoolToColorConverter x:Key="myConverter" />
+            <local:BoolToValueConverter x:TypeArguments="Color" x:Key="myConverter" TrueValue="Color.Blue" FalseValue="Color.White" />
             <Style x:Key="recordingStyle" TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
@@ -42,6 +42,7 @@
                                 <StackLayout Orientation="Horizontal">
                                     <Button IsEnabled="False" Style="{StaticResource recordingStyle}" IsVisible="{Binding IsCurrentlyActive}" />
                                     <Label Text="{Binding Naam}" Style="{StaticResource mainLabelStyle}" />
+                                    <!--BackgroundColor="{Binding IsCurrentlyActive,Converter={StaticResource myConverter}}"-->
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="#registraties: " Font="10" Style="{StaticResource subLabelStyle}" WidthRequest="80" />
