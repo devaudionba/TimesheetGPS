@@ -28,7 +28,7 @@ namespace TimesheetGPS.Model
         {
             return db.Table<T>();
         }
-
+            
         public int Count(Expression<Func<T, bool>> predicate = null)
         {
             var query = db.Table<T>();

@@ -26,9 +26,7 @@ namespace TimesheetGPS.View
 
             InitializeComponent();
 
-            myMap.MoveToRegion(
-                MapSpan.FromCenterAndRadius(
-                new Position(37, -122), Distance.FromMiles(1)));
+            myMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(52.048565, 5.095628), Distance.FromMeters(400)));
         }
 
         private async Task Button_ClickedAsync(object sender, EventArgs e)

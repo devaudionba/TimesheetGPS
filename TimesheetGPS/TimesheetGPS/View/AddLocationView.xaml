@@ -9,7 +9,7 @@
             <Label Text="Name" VerticalOptions="Center" HorizontalOptions="Center" />
             <Entry Placeholder="Give your location a descriptive name" Text="{Binding Name}" />
             <Button Text="Add" Clicked="Button_ClickedAsync" />
-            <maps:Map IsShowingUser="True" VerticalOptions="FillAndExpand" x:Name="myMap" MapType="Street"/>
+            <maps:Map IsShowingUser="True" VerticalOptions="FillAndExpand" x:Name="myMap" MapType="Street" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
