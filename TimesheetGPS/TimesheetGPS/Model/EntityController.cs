@@ -16,7 +16,7 @@ namespace TimesheetGPS.Model
         {
             this.db = App.SqlConnection;
 
-            App.SqlConnection.CreateTable<Registratie>();
+            App.SqlConnection.CreateTable<T>();
         }
 
         public int Add(T entity)

@@ -8,6 +8,7 @@ using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 using TimesheetGPS.ViewModel;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace TimesheetGPS.View
@@ -24,6 +25,10 @@ namespace TimesheetGPS.View
             BindingContext = vm;
 
             InitializeComponent();
+
+            myMap.MoveToRegion(
+                MapSpan.FromCenterAndRadius(
+                new Position(37, -122), Distance.FromMiles(1)));
         }
 
         private async Task Button_ClickedAsync(object sender, EventArgs e)

@@ -3,6 +3,10 @@
 <plist version="1.0">
   <dict>
     <key>UIDeviceFamily</key>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>To be able to track you entering and exiting your locations we need to use your location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>To be able to track you entering and exiting your locations we need to use your location</string>
     <array>
       <integer>1</integer>
       <integer>2</integer>
