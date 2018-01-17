@@ -21,8 +21,7 @@ namespace TimesheetGPS.View
 
             var addToolbarItem = new ToolbarItem();
             addToolbarItem.Text = "Add";
-            //addToolbarItem.Command = new Command(() => { vm.Locaties.Add(new Locatie() {  Naam = "Test", Id = 4})); });
-
+            addToolbarItem.Command = new Command(() => { Navigation.PushModalAsync(new AddLocationView()); });
 
             //var deleteAction = new MenuItem { Text = "Delete", IsDestructive = true }; // red background
             //deleteAction.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
