@@ -26,9 +26,11 @@ namespace TimesheetGPS.View
             InitializeComponent();
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async Task Button_ClickedAsync(object sender, EventArgs e)
         {
             vm.Add();
+
+            await Navigation.PopModalAsync(true);
         }
     }
 }

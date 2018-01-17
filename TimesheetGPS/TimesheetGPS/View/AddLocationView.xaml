@@ -7,7 +7,7 @@
         <StackLayout>
             <Label Text="Name" VerticalOptions="Center" HorizontalOptions="Center" />
             <Entry Placeholder="Give your location a descriptive name" Text="{Binding Name}" />
-            <Button Text="Add" Clicked="Button_Clicked" />
+            <Button Text="Add" Clicked="Button_ClickedAsync" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
