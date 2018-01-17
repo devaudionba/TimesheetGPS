@@ -38,6 +38,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnDeleteAsync" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
                             <StackLayout Padding="5">
                                 <StackLayout Orientation="Horizontal">
                                     <Button IsEnabled="False" Style="{StaticResource recordingStyle}" IsVisible="{Binding IsCurrentlyActive}" />

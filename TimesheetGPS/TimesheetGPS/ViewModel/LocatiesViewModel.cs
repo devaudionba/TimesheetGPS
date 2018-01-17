@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using TimesheetGPS.Interfaces;
@@ -12,7 +13,7 @@ namespace TimesheetGPS.ViewModel
         private IEntityController<Locatie> locatieController;
         private IEntityController<Registratie> registratieController;
 
-        private List<LocatieDisplayInfo> locaties;
+        private ObservableCollection<LocatieDisplayInfo> locaties;
 
         public LocatiesViewModel(IEntityController<Locatie> locatieController, IEntityController<Registratie> registratieController)
         {
@@ -22,21 +23,9 @@ namespace TimesheetGPS.ViewModel
             GetLocaties();
         }
 
-        private void GetLocaties()
-        {
-            Locaties = locatieController
-                          .Get()
-                          .Select(x => new LocatieDisplayInfo
-                          {
-                              ID = x.Id,
-                              Naam = x.Naam,
-                              NumberOfRegistrations = registratieController.Get().Where(y => y.LocatieID == x.Id).Count(),
-                              IsCurrentlyActive = registratieController.Get().Any(y => y.LocatieID == x.Id && y.EindTijd == null)
-                          })
-                          .ToList();
-        }
-        
-        public List<LocatieDisplayInfo> Locaties
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<LocatieDisplayInfo> Locaties
         {
             get { return locaties; }
             set
@@ -46,16 +35,34 @@ namespace TimesheetGPS.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public void Refresh()
+        {
+            GetLocaties();
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void Refresh()
+        private void GetLocaties()
         {
-            GetLocaties();
+            Locaties = new ObservableCollection<LocatieDisplayInfo>(locatieController
+                          .Get()
+                          .Select(x => new LocatieDisplayInfo
+                          {
+                              ID = x.Id,
+                              Naam = x.Naam,
+                              NumberOfRegistrations = registratieController.Get().Where(y => y.LocatieID == x.Id).Count(),
+                              IsCurrentlyActive = registratieController.Get().Any(y => y.LocatieID == x.Id && y.EindTijd == null)
+                          })
+                          .ToList());
+        }
+
+        public void Delete(LocatieDisplayInfo item)
+        {
+            locatieController.Remove(item.ID.Value);
+            Refresh();
         }
     }
 }

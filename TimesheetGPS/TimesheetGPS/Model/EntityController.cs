@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using TimesheetGPS.Interfaces;
 
 namespace TimesheetGPS.Model
@@ -21,12 +19,17 @@ namespace TimesheetGPS.Model
             App.SqlConnection.CreateTable<Registratie>();
         }
 
+        public int Add(T entity)
+        {
+            return db.Insert(entity);
+        }
+
         public TableQuery<T> AsQueryable()
         {
             return db.Table<T>();
         }
 
-        public  int Count(Expression<Func<T, bool>> predicate = null)
+        public int Count(Expression<Func<T, bool>> predicate = null)
         {
             var query = db.Table<T>();
 
@@ -35,30 +38,25 @@ namespace TimesheetGPS.Model
                 query = query.Where(predicate);
             }
 
-            return  query.Count();
+            return query.Count();
         }
 
-        public  int Remove(T entity)
+        public List<T> Get()
         {
-            return  db.Delete(entity);
+            return db.Table<T>().ToList();
         }
 
-        public  List<T> Get()
+        public T Get(Expression<Func<T, bool>> predicate)
         {
-            return  db.Table<T>().ToList();
+            return db.Find<T>(predicate);
         }
 
-        public  T Get(Expression<Func<T, bool>> predicate)
+        public T Get(int id)
         {
-            return  db.Find<T>(predicate);
+            return db.Find<T>(id);
         }
 
-        public  T Get(int id)
-        {
-            return  db.Find<T>(id);
-        }
-
-        public  ObservableCollection<T> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null)
+        public ObservableCollection<T> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null)
         {
             var query = db.Table<T>();
 
@@ -72,7 +70,7 @@ namespace TimesheetGPS.Model
             }
 
             var collection = new ObservableCollection<T>();
-            var items =  query.ToList();
+            var items = query.ToList();
             foreach (var item in items)
             {
                 collection.Add(item);
@@ -81,14 +79,13 @@ namespace TimesheetGPS.Model
             return collection;
         }
 
-        public  int Add(T entity)
+        public int Remove(int id)
         {
-            return  db.Insert(entity);
+            return db.Delete<Locatie>(id);
         }
-
-        public  int Update(T entity)
+        public int Update(T entity)
         {
-            return  db.Update(entity);
+            return db.Update(entity);
         }
     }
 }

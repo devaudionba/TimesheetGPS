@@ -24,7 +24,7 @@ namespace TimesheetGPS.Interfaces
 
         int Update(T entity);
 
-        int Remove(T entity);
+        int Remove(int id);
 
         int Count(Expression<Func<T, bool>> predicate = null);
     }
