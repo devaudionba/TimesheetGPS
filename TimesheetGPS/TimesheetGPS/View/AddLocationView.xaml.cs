@@ -26,14 +26,25 @@ namespace TimesheetGPS.View
 
             InitializeComponent();
 
-            myMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(52.048565, 5.095628), Distance.FromMeters(400)));
+            var position = new Position(52.048565, 5.095628);
+
+            myMap.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(400)));
+
+            var pin = new Pin
+            {
+                Type = PinType.Place,
+                Position = position,
+                Label = "Instravu",
+                Address = "Middelhoeve 20"
+            };
+            myMap.Pins.Add(pin);
         }
 
         private async Task Button_ClickedAsync(object sender, EventArgs e)
         {
             vm.Add();
 
-            await Navigation.PopModalAsync(true);
+            await Navigation.PopAsync(true);
         }
     }
 }

@@ -5,11 +5,14 @@
              x:Class="TimesheetGPS.View.AddLocationView"
              Title="Add Location">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Name" VerticalOptions="Center" HorizontalOptions="Center" />
-            <Entry Placeholder="Give your location a descriptive name" Text="{Binding Name}" />
-            <Button Text="Add" Clicked="Button_ClickedAsync" />
+        <StackLayout Padding="10">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Name" VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Placeholder="Enter name here" Text="{Binding Name}" VerticalOptions="Center"  HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <Label Text="Tap to add location"/>
             <maps:Map IsShowingUser="True" VerticalOptions="FillAndExpand" x:Name="myMap" MapType="Street" />
+            <Button Text="Add" Clicked="Button_ClickedAsync" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
