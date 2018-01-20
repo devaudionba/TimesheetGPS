@@ -36,11 +36,11 @@ namespace TimesheetGPS.Droid
             {
                 Android.Views.View view;
 
-                //var customPin = GetCustomPin(marker);
-                //if (customPin == null)
-                //{
-                //    throw new Exception("Custom pin not found");
-                //}
+                var customPin = GetCustomPin(marker);
+                if (customPin == null)
+                {
+                    throw new Exception("Custom pin not found");
+                }
 
                 //if (customPin.Id == "Xamarin")
                 //{
@@ -48,7 +48,7 @@ namespace TimesheetGPS.Droid
                 //}
                 //else
                 //{
-                    view = inflater.Inflate(Resource.Layout.MapInfoWindow, null);
+                view = inflater.Inflate(Resource.Layout.MapInfoWindow, null);
                 //}
 
                 var infoTitle = view.FindViewById<TextView>(Resource.Id.InfoWindowTitle);
@@ -100,11 +100,11 @@ namespace TimesheetGPS.Droid
 
         void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
         {
-            //var customPin = GetCustomPin(e.Marker);
-            //if (customPin == null)
-            //{
-            //    throw new Exception("Custom pin not found");
-            //}
+            var customPin = GetCustomPin(e.Marker);
+            if (customPin == null)
+            {
+                throw new Exception("Custom pin not found");
+            }
 
             //if (!string.IsNullOrWhiteSpace(customPin.Url))
             //{
@@ -115,6 +115,17 @@ namespace TimesheetGPS.Droid
             //}
         }
 
-
+        CustomPin GetCustomPin(Marker annotation)
+        {
+            var position = new Position(annotation.Position.Latitude, annotation.Position.Longitude);
+            foreach (var pin in customPins)
+            {
+                if (pin.Position == position)
+                {
+                    return pin;
+                }
+            }
+            return null;
+        }
     }
 }

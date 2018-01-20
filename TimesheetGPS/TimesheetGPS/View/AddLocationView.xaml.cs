@@ -30,13 +30,14 @@ namespace TimesheetGPS.View
 
             myMap.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(400)));
 
-            var pin = new Pin
+            var pin = new CustomPin
             {
                 Type = PinType.Place,
                 Position = position,
                 Label = "Instravu",
                 Address = "Middelhoeve 20"
             };
+            myMap.CustomPins = new List<CustomPin> { pin };
             myMap.Pins.Add(pin);
         }
 
