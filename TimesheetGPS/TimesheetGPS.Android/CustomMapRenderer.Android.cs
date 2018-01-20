@@ -21,8 +21,10 @@ using Android.Gms.Maps.Model;
 
 namespace TimesheetGPS.Droid
 {
-    public class CustomMapRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter
+    public class CustomMapRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
+        private GoogleMap customMap;
+
         List<CustomPin> customPins;
 
         public CustomMapRenderer(Context context) : base(context)
@@ -77,6 +79,9 @@ namespace TimesheetGPS.Droid
         {
             base.OnElementChanged(e);
 
+            if (customMap != null)
+                customMap.MapClick -= map_MapClick;
+
             if (e.OldElement != null)
             {
                 NativeMap.InfoWindowClick -= OnInfoWindowClick;
@@ -88,14 +93,35 @@ namespace TimesheetGPS.Droid
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
+
+
         }
 
         protected override void OnMapReady(GoogleMap map)
         {
             base.OnMapReady(map);
 
+            customMap = map;
+
+            if (customMap != null)
+                customMap.MapClick += map_MapClick;
+
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
+
+
+            //var tapGestureRecognizer = new TapGestureRecognizer();
+            //tapGestureRecognizer.Tapped += (s, e) => {
+            //    // handle the tap
+                
+            //};
+            //map.GestureRecognizers.Add(tapGestureRecognizer);
+        }
+        private void map_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        {
+            var newPin = new CustomPin() { Label = "Test", Position = new Position(e.Point.Latitude, e.Point.Longitude) };
+            ((CustomMap)Element).Pins.Add(newPin);
+            ((CustomMap)Element).CustomPins.Add(newPin);
         }
 
         void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
