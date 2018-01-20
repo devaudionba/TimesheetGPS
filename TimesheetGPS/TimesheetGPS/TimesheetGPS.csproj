@@ -43,6 +43,8 @@
     <Compile Include="Interfaces\IDatabaseAccess.cs" />
     <Compile Include="Interfaces\IEntityController.cs" />
     <Compile Include="Interfaces\IFileHelper.cs" />
+    <Compile Include="Model\CustomMap.cs" />
+    <Compile Include="Model\CustomPin.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\EntityController.cs" />
