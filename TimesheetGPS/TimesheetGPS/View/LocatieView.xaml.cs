@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using System;
+using System.Collections.Generic;
 using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 using TimesheetGPS.ViewModel;
@@ -23,6 +24,7 @@ namespace TimesheetGPS.View
             vm.Load(ID);
 
             myMap.Pins.Add(new Pin() { Label = vm.Naam, Position = vm.Position });
+            myMap.CustomPins = new List<CustomPin>() { new CustomPin() { Label = vm.Naam, Position = vm.Position } };
             myMap.MoveToRegion(MapSpan.FromCenterAndRadius(vm.Position, new Distance(100)));
 
             BindingContext = vm;

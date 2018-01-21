@@ -1,8 +1,5 @@
 ﻿using Autofac;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
@@ -30,28 +27,7 @@ namespace TimesheetGPS.View
 
             myMap.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(400)));
 
-            var pin = new CustomPin
-            {
-                Type = PinType.Place,
-                Position = position,
-                Label = "Instravu",
-                Address = "Middelhoeve 20"
-            };
-            myMap.CustomPins = new List<CustomPin> { pin };
-            myMap.Pins.Add(pin);
-
             myMap.MapTapped += MyMap_MapTapped;
-        }
-
-        private void MyMap_MapTapped(object sender, MapTappedEventArgs e)
-        {
-            var newPin = new CustomPin() { Label = "Test", Position = e.Position };
-            myMap.Pins.Clear();
-            myMap.CustomPins.Clear();
-            myMap.Pins.Add(newPin);
-            myMap.CustomPins.Add(newPin);
-
-            vm.Position = e.Position;
         }
 
         private async Task Button_ClickedAsync(object sender, EventArgs e)
@@ -59,6 +35,21 @@ namespace TimesheetGPS.View
             vm.Add();
 
             await Navigation.PopAsync(true);
+        }
+
+        private void MyMap_MapTapped(object sender, MapTappedEventArgs e)
+        {
+            var newPin = new CustomPin() { Label = "Test", Position = e.Position, Radius = vm.Radius };
+
+            myMap.Pins.Clear();
+            myMap.CustomPins.Clear();
+
+            myMap.Pins.Add(newPin);
+            myMap.CustomPins.Add(newPin);
+
+            myMap.OnUpdateCircles(null);
+
+            vm.Position = e.Position;
         }
     }
 }

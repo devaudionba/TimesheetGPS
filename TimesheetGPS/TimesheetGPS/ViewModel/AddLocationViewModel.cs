@@ -1,30 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 using Xamarin.Forms.Maps;
 
 namespace TimesheetGPS.ViewModel
 {
-    class AddLocationViewModel : INotifyPropertyChanged
+    internal class AddLocationViewModel : INotifyPropertyChanged
     {
         private IEntityController<Locatie> locatieController;
+
+        private string name;
+
+        private Position position;
+
+        private double radius;
 
         public AddLocationViewModel(IEntityController<Locatie> locatieController)
         {
             this.locatieController = locatieController;
         }
 
-        public void Add()
-        {
-            locatieController.Add(new Locatie() { Naam = Name, Latitude = Position.Latitude, Longitude = Position.Longitude });
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private string name;
+        public bool IsEnabled => (Position != null) && (!string.IsNullOrEmpty(Name));
 
         public string Name
         {
@@ -37,8 +36,6 @@ namespace TimesheetGPS.ViewModel
             }
         }
 
-        private Position position;
-
         public Position Position
         {
             get { return position; }
@@ -50,10 +47,27 @@ namespace TimesheetGPS.ViewModel
             }
         }
 
-        public bool IsEnabled => (Position != null) && (!string.IsNullOrEmpty(Name));
+        public double Radius
+        {
+            get { return Math.Max(radius, 25); }
+            set
+            {
+                radius = Math.Max(value, 25);
+                OnPropertyChanged("Radius");
+            }
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        public void Add()
+        {
+            locatieController.Add(
+                new Locatie()
+                {
+                    Naam = Name,
+                    Latitude = Position.Latitude,
+                    Longitude = Position.Longitude,
+                    Radius = Radius
+                });
+        }
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

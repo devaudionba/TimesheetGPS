@@ -1,24 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms.Maps;
 
 namespace TimesheetGPS.Model
 {
     public class CustomMap : Map
     {
-        public List<CustomPin> CustomPins { get; set; }
-
-        public event MapTappedEventHandler MapTapped;
+        private List<CustomPin> customPins = new List<CustomPin>();
 
         public delegate void MapTappedEventHandler(object sender, MapTappedEventArgs e);
+        public delegate void UpdateCirclesEventHandler(object sender, UpdateCirclesEventArgs e);
+
+        public event MapTappedEventHandler MapTapped;
+        public event UpdateCirclesEventHandler UpdateCircles;
+
+        public List<CustomPin> CustomPins
+        {
+            get { return customPins; }
+            set
+            {
+                customPins = value;
+            }
+        }
 
         public void OnMapTapped(MapTappedEventArgs e)
         {
-            if (MapTapped != null)
-                MapTapped(this, e);
+            MapTapped?.Invoke(this, e);
+        }
+
+        public void OnUpdateCircles(UpdateCirclesEventArgs e)
+        {
+            UpdateCircles?.Invoke(this, e);
         }
     }
 
@@ -30,5 +42,9 @@ namespace TimesheetGPS.Model
         }
 
         public Position Position { get; set; }
+    }
+
+    public class UpdateCirclesEventArgs : EventArgs
+    {
     }
 }

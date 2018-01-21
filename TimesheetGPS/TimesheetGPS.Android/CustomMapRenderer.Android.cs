@@ -1,21 +1,15 @@
-﻿using System;
+﻿using Android.Content;
+using Android.Gms.Maps;
+using Android.Gms.Maps.Model;
+using Android.Widget;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Xamarin.Forms;
-using TimesheetGPS.Model;
 using TimesheetGPS.Droid;
-using Xamarin.Forms.Maps.Android;
-using Android.Gms.Maps;
+using TimesheetGPS.Model;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
-using Android.Gms.Maps.Model;
+using Xamarin.Forms.Maps.Android;
 
 [assembly: ExportRenderer(typeof(CustomMap), typeof(CustomMapRenderer))]
 
@@ -25,7 +19,8 @@ namespace TimesheetGPS.Droid
     {
         private GoogleMap customMap;
 
-        List<CustomPin> customPins;
+        private List<CustomPin> customPins;
+        private List<Circle> circles;
 
         public CustomMapRenderer(Context context) : base(context)
         {
@@ -80,7 +75,9 @@ namespace TimesheetGPS.Droid
             base.OnElementChanged(e);
 
             if (customMap != null)
+            {
                 customMap.MapClick -= map_MapClick;
+            }
 
             if (e.OldElement != null)
             {
@@ -91,6 +88,8 @@ namespace TimesheetGPS.Droid
             {
                 var formsMap = (CustomMap)e.NewElement;
                 customPins = formsMap.CustomPins;
+                formsMap.UpdateCircles += FormsMap_UpdateCircles;
+
                 Control.GetMapAsync(this);
             }
         }
@@ -107,37 +106,15 @@ namespace TimesheetGPS.Droid
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
 
-
-            //var tapGestureRecognizer = new TapGestureRecognizer();
-            //tapGestureRecognizer.Tapped += (s, e) => {
-            //    // handle the tap
-                
-            //};
-            //map.GestureRecognizers.Add(tapGestureRecognizer);
+            UpdateCircles();
         }
-        private void map_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+
+        private void FormsMap_UpdateCircles(object sender, UpdateCirclesEventArgs e)
         {
-            ((CustomMap)Element).OnMapTapped(new MapTappedEventArgs(new Position(e.Point.Latitude, e.Point.Longitude)));
+            UpdateCircles();
         }
 
-        void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
-        {
-            var customPin = GetCustomPin(e.Marker);
-            if (customPin == null)
-            {
-                throw new Exception("Custom pin not found");
-            }
-
-            //if (!string.IsNullOrWhiteSpace(customPin.Url))
-            //{
-            //    var url = Android.Net.Uri.Parse(customPin.Url);
-            //    var intent = new Intent(Intent.ActionView, url);
-            //    intent.AddFlags(ActivityFlags.NewTask);
-            //    Android.App.Application.Context.StartActivity(intent);
-            //}
-        }
-
-        CustomPin GetCustomPin(Marker annotation)
+        private CustomPin GetCustomPin(Marker annotation)
         {
             var position = new Position(annotation.Position.Latitude, annotation.Position.Longitude);
             foreach (var pin in customPins)
@@ -148,6 +125,40 @@ namespace TimesheetGPS.Droid
                 }
             }
             return null;
+        }
+
+        private void map_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        {
+            ((CustomMap)Element).OnMapTapped(new MapTappedEventArgs(new Position(e.Point.Latitude, e.Point.Longitude)));
+        }
+
+        private void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
+        {
+            var customPin = GetCustomPin(e.Marker);
+            if (customPin == null)
+            {
+                throw new Exception("Custom pin not found");
+            }
+
+            // fill custom info window here
+        }
+
+        private void UpdateCircles()
+        {
+            circles?.ForEach(x => x.Remove());
+
+            circles = new List<Circle>();
+
+            customPins?.ForEach(x => {
+                var circleOptions = new CircleOptions();
+                circleOptions.InvokeCenter(new LatLng(x.Position.Latitude, x.Position.Longitude));
+                circleOptions.InvokeRadius(x.Radius);
+                circleOptions.InvokeFillColor(0X66FF0000);
+                circleOptions.InvokeStrokeColor(0X66FF0000);
+                circleOptions.InvokeStrokeWidth(0);
+
+                circles.Add(NativeMap.AddCircle(circleOptions));
+            });
         }
     }
 }
