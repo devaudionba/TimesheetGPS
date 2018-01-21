@@ -39,6 +39,19 @@ namespace TimesheetGPS.View
             };
             myMap.CustomPins = new List<CustomPin> { pin };
             myMap.Pins.Add(pin);
+
+            myMap.MapTapped += MyMap_MapTapped;
+        }
+
+        private void MyMap_MapTapped(object sender, MapTappedEventArgs e)
+        {
+            var newPin = new CustomPin() { Label = "Test", Position = e.Position };
+            myMap.Pins.Clear();
+            myMap.CustomPins.Clear();
+            myMap.Pins.Add(newPin);
+            myMap.CustomPins.Add(newPin);
+
+            vm.Position = e.Position;
         }
 
         private async Task Button_ClickedAsync(object sender, EventArgs e)

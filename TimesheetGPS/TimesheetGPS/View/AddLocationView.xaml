@@ -12,7 +12,7 @@
             </StackLayout>
             <Label Text="Tap to add location"/>
             <maps:CustomMap IsShowingUser="True" VerticalOptions="FillAndExpand" x:Name="myMap" MapType="Street" />
-            <Button Text="Add" Clicked="Button_ClickedAsync" />
+            <Button Text="Add" Clicked="Button_ClickedAsync" IsEnabled="{Binding IsEnabled}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

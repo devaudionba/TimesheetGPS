@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
+using Xamarin.Forms.Maps;
 
 namespace TimesheetGPS.ViewModel
 {
@@ -20,7 +21,7 @@ namespace TimesheetGPS.ViewModel
 
         public void Add()
         {
-            locatieController.Add(new Locatie() { Naam = Name });
+            locatieController.Add(new Locatie() { Naam = Name, Latitude = Position.Latitude, Longitude = Position.Longitude });
         }
 
         private string name;
@@ -32,8 +33,24 @@ namespace TimesheetGPS.ViewModel
             {
                 name = value;
                 OnPropertyChanged("Name");
+                OnPropertyChanged("IsEnabled");
             }
         }
+
+        private Position position;
+
+        public Position Position
+        {
+            get { return position; }
+            set
+            {
+                position = value;
+                OnPropertyChanged("Position");
+                OnPropertyChanged("IsEnabled");
+            }
+        }
+
+        public bool IsEnabled => (Position != null) && (!string.IsNullOrEmpty(Name));
 
         public event PropertyChangedEventHandler PropertyChanged;
 

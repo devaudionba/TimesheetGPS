@@ -93,8 +93,6 @@ namespace TimesheetGPS.Droid
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
-
-
         }
 
         protected override void OnMapReady(GoogleMap map)
@@ -119,9 +117,7 @@ namespace TimesheetGPS.Droid
         }
         private void map_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
-            var newPin = new CustomPin() { Label = "Test", Position = new Position(e.Point.Latitude, e.Point.Longitude) };
-            ((CustomMap)Element).Pins.Add(newPin);
-            ((CustomMap)Element).CustomPins.Add(newPin);
+            ((CustomMap)Element).OnMapTapped(new MapTappedEventArgs(new Position(e.Point.Latitude, e.Point.Longitude)));
         }
 
         void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
