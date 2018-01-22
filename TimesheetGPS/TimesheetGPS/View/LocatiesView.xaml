@@ -14,7 +14,6 @@
                 <Setter Property="BorderRadius" Value="7" />
                 <Setter Property="WidthRequest" Value="14" />
                 <Setter Property="HeightRequest" Value="14" />
-                <Setter Property="TextColor" Value="Black" />
             </Style>
             <Style x:Key="mainLabelStyle" TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="Center" />

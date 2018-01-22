@@ -9,6 +9,6 @@ namespace TimesheetGPS.Model
 {
     public class CustomPin : Pin
     {
-        public double Radius { get; set; } = 50;
+        public double Radius { get; set; } = 100;
     }
 }

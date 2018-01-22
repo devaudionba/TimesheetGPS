@@ -39,7 +39,14 @@ namespace TimesheetGPS.View
 
         private void MyMap_MapTapped(object sender, MapTappedEventArgs e)
         {
-            var newPin = new CustomPin() { Label = "Test", Position = e.Position, Radius = vm.Radius };
+            vm.Position = e.Position;
+
+            var newPin = new CustomPin()
+                            {
+                                Label = !string.IsNullOrEmpty(vm.Name) ? vm.Name : "<unknown>",
+                                Position = vm.Position,
+                                Radius = vm.Radius
+                            };
 
             myMap.Pins.Clear();
             myMap.CustomPins.Clear();
@@ -48,8 +55,6 @@ namespace TimesheetGPS.View
             myMap.CustomPins.Add(newPin);
 
             myMap.OnUpdateCircles(null);
-
-            vm.Position = e.Position;
         }
     }
 }
