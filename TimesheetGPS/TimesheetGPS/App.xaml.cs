@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using Plugin.Geofencing;
 using SQLite;
 using System;
+using System.Linq;
 using System.Reflection;
 using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
@@ -50,7 +52,59 @@ namespace TimesheetGPS
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            // Start monitoring all locations
+            var locatieController = App.container.Resolve<IEntityController<Locatie>>();
+            var locaties = locatieController.Get();
+
+            CrossGeofences.Current.StopAllMonitoring();
+            foreach (var locatie in locaties)
+            {
+                var region = new GeofenceRegion(
+                    locatie.Id.ToString(),
+                    new Position(locatie.Latitude, locatie.Longitude),
+                    Distance.FromKilometers(locatie.Radius)
+                );
+
+                CrossGeofences.Current.StartMonitoring(region);
+            }
+
+            CrossGeofences.Current.RegionStatusChanged += (sender, args) =>
+            {
+                var locatie = locatieController.Get().Where(l => l.Id.ToString() == args.Region.Identifier);
+                var registratieController = App.container.Resolve<IEntityController<Registratie>>();
+
+                switch (args.Status)
+                {
+                    case GeofenceStatus.Unknown:
+                        break;
+
+                    case GeofenceStatus.Entered:
+                        registratieController.Add(new Model.Registratie()
+                        {
+                            LocatieID = int.Parse(args.Region.Identifier),
+                            StartTijd = DateTime.Now,
+                            GPSRegistratie = true
+                        });
+
+                        break;
+
+                    case GeofenceStatus.Exited:
+                        var activeRegistration = registratieController.Get()
+                                .Where(x => x.LocatieID.ToString() == args.Region.Identifier)
+                                .FirstOrDefault(x => x.EindTijd == null);
+
+                        if (activeRegistration == null)
+                            // TODO zou niet moeten kunnen, netjes fixen
+                            break;
+
+                        activeRegistration.EindTijd = DateTime.Now;
+                        registratieController.Update(activeRegistration);
+                        break;
+
+                    default:
+                        break;
+                }
+            };
         }
 
         protected override void OnSleep()
