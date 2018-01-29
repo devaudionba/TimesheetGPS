@@ -2,11 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <key>UIDeviceFamily</key>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>To be able to track you entering and exiting your locations we need to use your location</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>To be able to track you entering and exiting your locations we need to use your location</string>
+    <key>UIDeviceFamily</key>
     <array>
       <integer>1</integer>
       <integer>2</integer>
