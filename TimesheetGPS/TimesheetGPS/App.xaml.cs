@@ -8,6 +8,9 @@ using TimesheetGPS.Interfaces;
 using TimesheetGPS.Model;
 using TimesheetGPS.View;
 using Xamarin.Forms;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace TimesheetGPS
 {
@@ -52,6 +55,10 @@ namespace TimesheetGPS
 
         protected override void OnStart()
         {
+            AppCenter.Start("ios=c9f5ef06-26e7-4e66-8f7f-d122adb66eff;" +
+                   "android=c9f5ef06-26e7-4e66-8f7f-d122adb66eff",
+                   typeof(Analytics), typeof(Crashes));
+
             // Start monitoring all locations
             var locatieController = App.container.Resolve<IEntityController<Locatie>>();
             var locaties = locatieController.Get();
